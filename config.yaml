@@ -1,6 +1,7 @@
 title: 'Hussein Basil | حسين باسل'
 
 params: 
+  favicon: "/static/favicon.ico"
   socials:
     - link: "https://linkedin.com/in/hubasil"
       image: "/linkedin (2).svg"
