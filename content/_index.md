@@ -85,7 +85,7 @@ contact:
   methods:
     - icon: "/email.svg"
       value: "hi@hubasil.com"
-      link: "mailto:hu@hubasil.com"
+      link: "mailto:hi@hubasil.com"
       text: " I promise I check my email regularly!"
     - icon: "linkedin.svg"
       value: "in/hubasil"
