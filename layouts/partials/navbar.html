@@ -6,7 +6,7 @@
         {{ range .Site.Params.socials }}
         <li class="text-[16px] font-semibold hover:cursor">
             <a href="{{ .link }}" target="_blank">
-                <img alt="company logo" src='{{ .image }}' class="h-5 lg:h-9" />
+                <img src='{{ with resources.Get .image }} {{ .RelPermalink}} {{ end }}' class="h-5 lg:h-9" />
             </a>
         </li>
         {{ end }}
