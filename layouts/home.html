@@ -1,0 +1,127 @@
+{{ define "main" }}
+<div class="w-screen h-fit flex flex-col items-center text-center gap-y-[94px] overflow-hidden">
+  <section id="hero" class="w-full h-fit flex flex-col relative">
+    <div
+      class="text-3xl lg:text-5xl lg:max-w-[60vw] text-white leading-tight text-center absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[90%] lg:w-fit">
+      {{ .Params.hero.title }}</br>
+    </div>
+    <img src='{{ with resources.Get .Params.hero.image }} {{ .RelPermalink}} {{ end }}'
+      class="w-screen h-[30vh] lg:h-[480px] object-cover opacity-[0.5] -z-10" />
+  </section>
+  <section id="career" class="flex flex-col items-center gap-y-[12px] text-white max-w-[800px] px-10">
+    <h2 class="text-xl lg:text-4xl">{{ .Params.career.title }} </h2>
+    <p class="text-[16px] font-light text-[#ffffffb5] gap-x-1">
+      Currently, I'm a {{ .Params.career.position }} at
+      <a href="{{ .Params.career.company.link}}" target="_blank" class="underline text-green-600">{{
+        .Params.career.company.name }}</a>
+    </p>
+    <p class="text-[16px] font-light text-[#ffffffb5] mt-8">{{ .Params.career.whoami }}</p>
+    <p class="text-[16px] font-light text-[#ffffffb5] mt-8">{{ .Params.career.whatido }}</p>
+  </section>
+
+  <section id="skills" class="flex flex-col gap-4 items-center px-10">
+    <h3>{{ .Params.skills.title }}</h3>
+    <ul id="skills-domains" class="flex gap-3 flex-wrap justify-center">
+      {{ range $index, $domain := .Params.skills.domains }}
+      <li>
+        <button data-domain="{{$index}}" class="text-xs lg:text-[14px] hover:cursor bg-[#142549] rounded-full py-[12px] px-3 lg:px-[16px] text-nowrap "
+          onclick="showSkills({{$index}})">
+          {{ $domain.title }}
+        </button>
+      </li>
+      {{ end }}
+    </ul>
+    <ul id="skills-items" class="flex w-[90%] lg:max-w-[560px] flex-wrap justify-center gap-x-[8px] gap-y-[12px]">
+      {{ range $index, $domain := .Params.skills.domains }}
+      {{ range $domain.items }}
+      <li data-domain="{{ $index }}" class="flex flex-col items-center gap-y-[8px] hidden">
+        <div class="bg-[#142549] rounded-full w-[44px] p-[8px]">
+          {{ $icon := printf "/icons/%s.svg" (lower .)}}
+          <img src='{{ with resources.Get $icon }} {{ .RelPermalink}} {{ end }}' class="h-[28px]" />
+        </div>
+        <span class="text-[12px]">{{ . }}</span>
+      </li>
+      {{ end }}
+      {{ end }}
+    </ul>
+  </section>
+
+  <section id="projects" class="text-white flex flex-col gap-y-[6rem] px-10">
+    {{ range $index, $project := .Params.projects }}
+    <article class="project flex gap-10 {{ if eq (mod $index 2) 0 }}flex-col lg:flex-row-reverse{{ else }}flex-col lg:flex-row{{ end }} relative">
+      <div id="project-image-container" class="project-image w-fit h-fit relative">
+        <img src='{{ with resources.Get $project.image }} {{ .RelPermalink}} {{ end }}'
+          class="w-[90vw] lg:w-[580px] rounded-[16px]" />
+      </div>
+      <div style="z-index: 999"
+        class="project-text flex flex-col w-[90vw] lg:w-[670px] {{ if eq (mod $index 2) 0 }}items-start text-start{{ else }}items-start text-start lg:items-end lg:text-end{{ end }}">
+        <span class="text-sm lg:text-lg text-[#3590df] font-semibold">Featured Research</span>
+        <h3 class="text-2xl lg:text-3xl font-semibold">{{ $project.title }}</h3>
+        <div id="project-text-card"
+          class="relative h-fit lg:h-[180px] w-[90vw] lg:w-[660px] py-[26px] px-[21px] lg:px-[42px] text-[14px] lg:text-[18px] leading-8 mt-8 mb-4 font-light" style="
+            background-image: linear-gradient(135deg, rgba(87, 130, 211, 0.1), rgba(255,255,255,0.1));
+            backdrop-filter: blur(10px);  
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+          ">
+          <p>{{ $project.description }}</p>
+        </div>
+        <div class="flex gap-x-4 mx-4">
+          {{ range .publications }}
+          <a href="{{ . }}" target="_blank"><img
+              src='{{ with resources.Get "/click.svg" }} {{ .RelPermalink}} {{ end }}' class="h-[28px]" /></a>
+          {{ end }}
+        </div>
+      </div>
+    </article>
+    {{ end }}
+  </section>
+  <section id="contact" class="px-4 py-8 text-left w-[90vw] lg:max-w-[800px] h-fit">
+    <!-- Contact Section Header -->
+    <h2 class="text-3xl mb-6">Get in Touch</h2>
+    <!-- Contact Text -->
+    <p class="text-[16px] mb-6 text-[#ffffffb5]">
+      I’m always open to connecting with new people, exploring fresh opportunities, and collaborating on exciting
+      projects.
+      Whether you have a question, a proposal, or just want to chat about tech, feel free to reach out!
+    </p>
+
+    <!-- Contact Methods -->
+    <div class="space-y-4">
+      <!-- Email -->
+      {{ range .Params.contact.methods }}
+      <div class="flex items-center space-x-2 flex-wrap">
+        <img src='{{ with resources.Get .icon }} {{ .RelPermalink}} {{ end }}' class="h-[28px]" />
+        <a href="{{ .link }}" target="_blank" class="text-blue-400 hover:underline">{{ .value }}</a>
+        <span class="text-gray-400 text-sm text-nowrap">{{ .text }}</span>
+      </div>
+      {{end}}
+    </div>
+  </section>
+
+
+</div>
+<script>
+  function showSkills(index) {
+    // Hide all items first
+    document.querySelectorAll('#skills-items li').forEach(function (item) {
+      item.classList.add('hidden');
+    });
+    // Show items related to the selected domain
+    document.querySelectorAll(`#skills-items li[data-domain="${index}"]`).forEach(function (item) {
+      item.classList.remove('hidden');
+    });
+    document.querySelectorAll('#skills-domains li button').forEach(function (item) {
+      item.classList.remove('border-[#3590df]');
+      item.classList.remove('border-[1px]');
+    });
+    document.querySelectorAll(`#skills-domains li button[data-domain="${index}"]`).forEach(function (item) {
+      item.classList.add('border-[#3590df]');
+      item.classList.add('border-[1px]');
+    });
+  }
+
+  // Initially show items for the first domain
+  showSkills(0);
+</script>
+{{ end }}

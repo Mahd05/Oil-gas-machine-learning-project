@@ -1,0 +1,14 @@
+<nav class="max-w-[1000px] w-[80vw] mx-auto flex justify-between items-center py-[24px]">
+    <h1 class="text-lg lg:text-2xl">
+        Hussein Basil
+    </h1>
+    <ul class="flex flex-row gap-x-5">
+        {{ range .Site.Params.socials }}
+        <li class="text-[16px] font-semibold hover:cursor">
+            <a href="{{ .link }}" target="_blank">
+                <img alt="company logo" src='{{ .image }}' class="h-5 lg:h-9" />
+            </a>
+        </li>
+        {{ end }}
+    </ul>
+</nav>

@@ -1,0 +1,15 @@
+title: 'Hussein Basil | حسين باسل'
+
+params: 
+  socials:
+    - link: "https://linkedin.com/in/hubasil"
+      image: "/linkedin (2).svg"
+    - link: "https://github.com/hubasil"
+      image: "/github.svg"
+    - link: "https://researchgate.com/profile/Hussein-Basil"
+      image: "/researchgate.svg"
+
+module:
+  hugoVersion:
+    extended: false
+    min: "0.116.0"
