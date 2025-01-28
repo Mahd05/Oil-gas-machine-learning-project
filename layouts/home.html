@@ -2,8 +2,21 @@
 <div class="w-screen h-fit flex flex-col items-center text-center gap-y-[94px] overflow-hidden">
   <section id="hero" class="w-full h-fit flex flex-col relative">
     <div
-      class="text-3xl lg:text-5xl lg:max-w-[60vw] text-white leading-tight text-center absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[90%] lg:w-fit">
-      {{ .Params.hero.title }}</br>
+      class="flex flex-col items-center gap-5 lg:max-w-[40vw] text-center absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[90%] lg:w-fit">
+      <h1 class="text-3xl lg:text-5xl text-white leading-tight">{{ .Params.hero.title }}</h1>
+      <p class="text-[#fffffff5] max-w-[500px]">{{ .Params.hero.subtitle }}</p>
+      <button
+        class="w-fit bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
+      >
+      {{ .Params.hero.cta }}</button>
+      <div class="flex flex-row gap-4 text-center mt-8">
+        {{ range .Params.hero.socialproof }}
+          <div class="max-w-[100px]">
+            <p class="text-[18px]">{{.value}}</p>
+            <p class="text-[12px] text-[#ffffffc5]">{{.name}}</p>
+          </div>
+        {{ end }}
+      </div>
     </div>
     <img src='{{ with resources.Get .Params.hero.image }} {{ .RelPermalink}} {{ end }}'
       class="w-screen h-[30vh] lg:h-[480px] object-cover opacity-[0.5] -z-10" />
@@ -36,10 +49,12 @@
       {{ range $domain.items }}
       <li data-domain="{{ $index }}" class="flex flex-col items-center gap-y-[8px] hidden">
         <div class="bg-[#142549] rounded-full w-[44px] p-[8px]">
-          {{ $icon := printf "/icons/%s.svg" (lower .)}}
-          <img src='{{ with resources.Get $icon }} {{ .RelPermalink}} {{ end }}' class="h-[28px]" />
+          {{ $base := printf "/icons/%s" (lower .) }}
+          {{ $svg := printf "%s.svg" $base }}
+          {{ $png := printf "%s.png" $base }}
+            <img src='{{ with resources.Get $svg }} {{ .RelPermalink}} {{ else with resources.Get $png }} {{ .RelPermalink }} {{ end }}' class="h-[28px]" />
         </div>
-        <span class="text-[12px]">{{ . }}</span>
+        <span class="text-[12px] max-w-[64px]">{{ . }}</span>
       </li>
       {{ end }}
       {{ end }}
@@ -47,18 +62,20 @@
   </section>
 
   <section id="projects" class="text-white flex flex-col gap-y-[6rem] px-10">
-    {{ range $index, $project := .Params.projects }}
+    {{ range $index, $project := .Params.projects.items }}
     <article class="project flex gap-10 {{ if eq (mod $index 2) 0 }}flex-col lg:flex-row-reverse{{ else }}flex-col lg:flex-row{{ end }} relative">
       <div id="project-image-container" class="project-image w-fit h-fit relative">
-        <img src='{{ with resources.Get $project.image }} {{ .RelPermalink}} {{ end }}'
+        <img 
+          src='{{$project.image}}'
+          
           class="w-[90vw] lg:w-[580px] rounded-[16px]" />
       </div>
       <div style="z-index: 999"
         class="project-text flex flex-col w-[90vw] lg:w-[670px] {{ if eq (mod $index 2) 0 }}items-start text-start{{ else }}items-start text-start lg:items-end lg:text-end{{ end }}">
-        <span class="text-sm lg:text-lg text-[#3590df] font-semibold">Featured Research</span>
+        <span class="text-sm lg:text-lg text-[#3590df] font-semibold">Featured Project</span>
         <h3 class="text-2xl lg:text-3xl font-semibold">{{ $project.title }}</h3>
         <div id="project-text-card"
-          class="relative h-fit lg:h-[180px] w-[90vw] lg:w-[660px] py-[26px] px-[21px] lg:px-[42px] text-[14px] lg:text-[18px] leading-8 mt-8 mb-4 font-light text-justify" style="
+          class="relative h-fit w-[90vw] lg:w-[660px] py-[26px] px-[21px] lg:px-[42px] text-[14px] lg:text-[18px] leading-8 mt-8 mb-4 font-light text-justify" style="
             background-image: linear-gradient(135deg, rgba(87, 130, 211, 0.1), rgba(255,255,255,0.1));
             backdrop-filter: blur(10px);  
             -webkit-backdrop-filter: blur(10px);

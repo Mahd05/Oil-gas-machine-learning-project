@@ -1,14 +1,11 @@
-title: 'Hussein Basil | حسين باسل'
+title: 'Mahdi Hussein | مهدي حسين'
 
 params: 
+  navbar_title: "Mahdi Hussein"
   favicon: "/static/favicon.ico"
   socials:
-    - link: "https://linkedin.com/in/hubasil"
+    - link: "https://linkedin.com/in/mahdihussein"
       image: "/linkedin (2).svg"
-    - link: "https://github.com/hubasil"
-      image: "/github.svg"
-    - link: "https://researchgate.com/profile/Hussein-Basil"
-      image: "/researchgate.svg"
 
 module:
   hugoVersion:

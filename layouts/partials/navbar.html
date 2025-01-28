@@ -1,6 +1,6 @@
 <nav class="max-w-[1000px] w-[80vw] mx-auto flex justify-between items-center py-[24px]">
     <h1 class="text-lg lg:text-2xl">
-        Hussein Basil
+        {{ .Site.Params.navbar_title }}
     </h1>
     <ul class="flex flex-row gap-x-5">
         {{ range .Site.Params.socials }}
