@@ -13,7 +13,7 @@
 
 * {
   /* font-family: "Poppins"; */
-  font-family: "Preahvihear", serif;
+  font-family: "Poppins", serif;
   font-optical-sizing: auto;
   font-style: normal;
   font-variation-settings: "wdth" 100;
@@ -117,47 +117,6 @@ body.mobile-menu-scrolling {
   overflow-y: hidden;
 }
 
-/* Width */
-::-webkit-scrollbar {
-  width: 10px;
-}
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888;
-}
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-.cursor-circle {
-  height: 24px;
-  width: 24px;
-  border-radius: 50%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 99999999;
-}
-
-.cursor-inner-circle {
-  height: 6px;
-  width: 6px;
-  background-color: #3b82f6;
-}
-.cursor-outer-circle {
-  height: 56px;
-  width: 56px;
-  opacity: 0.7;
-  background-color: none;
-  border: 2px solid #3b82f6;
-  transition: all 0.08s ease-out;
-}
 
 body {
   position: relative;

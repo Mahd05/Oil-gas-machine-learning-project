@@ -1,0 +1,15 @@
+{{ define "main" }}
+<div class="max-w-[80vw] w-screen mx-auto lg:max-w-[1000px] flex flex-col gap-y-[60px] lg:gap-y-[120px] mt-[120px] mb-[60px]">
+    <img src='{{ with resources.Get .Params.image }} {{ .RelPermalink}} {{ end }}' class="w-full h-[240px] bg-[#D9D9D9] rounded-[24px] object-cover" />
+    <div id="intro" class="w-full flex flex-col gap-y-[28px] text-start">
+        <h1 class="text-[42px] lg:text-[54px] text-white font-extrabold">{{ .Title }}</h1>
+        <p>{{ .Params.description }}</p>
+    </div>
+    {{ with .Params.events }}
+    <div id="examples" class="flex flex-col gap-y-[36px]">
+        <h2 class="text-[32px] lg:text-[42px] font-semibold text-white">Other Events</h2>
+        {{- partial "events-list.html" $ -}}
+    </div>
+    {{ end }}
+</div>
+{{ end }}

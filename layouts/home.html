@@ -60,52 +60,16 @@
       {{ end }}
     </ul>
   </section>
-
-  <section id="projects" class="text-white flex flex-col gap-y-[6rem] px-10">
-    {{ range $index, $project := .Params.projects.items }}
-    <article class="project flex gap-10 {{ if eq (mod $index 2) 0 }}flex-col lg:flex-row-reverse{{ else }}flex-col lg:flex-row{{ end }} relative">
-      <div id="project-image-container" class="project-image w-fit h-fit relative">
-        <img 
-          src='{{$project.image}}'
-          
-          class="w-[90vw] lg:w-[580px] rounded-[16px]" />
-      </div>
-      <div style="z-index: 999"
-        class="project-text flex flex-col w-[90vw] lg:w-[670px] {{ if eq (mod $index 2) 0 }}items-start text-start{{ else }}items-start text-start lg:items-end lg:text-end{{ end }}">
-        <span class="text-sm lg:text-lg text-[#3590df] font-semibold">Featured Project</span>
-        <h3 class="text-2xl lg:text-3xl font-semibold">{{ $project.title }}</h3>
-        <div id="project-text-card"
-          class="relative h-fit w-[90vw] lg:w-[660px] py-[26px] px-[21px] lg:px-[42px] text-[14px] lg:text-[18px] leading-8 mt-8 mb-4 font-light text-justify" style="
-            background-image: linear-gradient(135deg, rgba(87, 130, 211, 0.1), rgba(255,255,255,0.1));
-            backdrop-filter: blur(10px);  
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-          ">
-          <p>{{ $project.description }}</p>
-        </div>
-        <div class="flex gap-x-4 mx-4">
-          {{ range .publications }}
-          <a href="{{ . }}" target="_blank"><img
-              src='{{ with resources.Get "/click.svg" }} {{ .RelPermalink}} {{ end }}' class="h-[28px]" /></a>
-          {{ end }}
-        </div>
-      </div>
-    </article>
-    {{ end }}
-  </section>
+  {{ partial "projects-grid.html" (where .Site.RegularPages "Type" "projects") }}
   <section id="contact" class="px-4 py-8 text-left w-[90vw] lg:max-w-[800px] h-fit">
-    <!-- Contact Section Header -->
     <h2 class="text-3xl mb-6">Get in Touch</h2>
-    <!-- Contact Text -->
     <p class="text-[16px] mb-6 text-[#ffffffb5]">
       I’m always open to connecting with new people, exploring fresh opportunities, and collaborating on exciting
       projects.
       Whether you have a question, a proposal, or just want to chat about tech, feel free to reach out!
     </p>
 
-    <!-- Contact Methods -->
     <div class="space-y-4">
-      <!-- Email -->
       {{ range .Params.contact.methods }}
       <div class="flex items-center space-x-2 flex-wrap">
         <img src='{{ with resources.Get .icon }} {{ .RelPermalink}} {{ end }}' class="h-[28px]" />
